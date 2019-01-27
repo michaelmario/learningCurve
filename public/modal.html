@@ -1,0 +1,77 @@
+<!-- Modal -->
+<div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">S'inscrire</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="modalform" autocomplete="off">
+          <div class="form-group">
+            <label for="modalnom">Nom</label>
+            <input type="text" class="form-control" id="modalnom" aria-describedby="textHelp" autocomplete="current-username"
+              placeholder="Entrez votre Nom" required>
+          </div>
+          <div class="form-group">
+            <label for="modalemail">Email</label>
+            <input type="email" class="form-control" id="modalemail" aria-describedby="emailHelp" autocomplete="current-email"
+              placeholder="Entrez votre Email" required>
+          </div>
+
+          <div class="form-group">
+            <label for="modalpass">Password</label>
+            <input type="password" class="form-control" id="modalpass" aria-describedby="passwordHelp" autocomplete="current-password"
+              placeholder="Password" required>
+          </div>
+          <button type="reset" class="btn btn-secondary" id="reset" accesskey="r"> Reset</button>
+          <div id="output"></div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" onclick="sinUpUser()" class="btn btn-outline-primary">Envoyer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- singin Modal-->
+<div class="modal fade" id="signIn" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Connexion</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="sigIn-form">
+          <div class="form-group">
+            <label for="signIn-email">Email</label>
+            <input type="email" class="form-control" id="signIn-email" aria-describedby="email-Help" name="emailaddress"
+              autocomplete="current-email" placeholder="Entrez votre Email" required>
+          </div>
+          <div class="form-group">
+            <label for="signIn-password">Password</label>
+            <input type="password" class="form-control" id="signIn-password" aria-describedby="password-Help"
+              autocomplete="current-password" placeholder="Password" required>
+          </div>
+          <button type="reset" class="btn btn-secondary" id="resetSignIn" accesskey="r"> Reset</button>
+          <div id="outputSignIn"></div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" onclick="sinInUser()" class="btn btn-success">Envoyer</button>
+      </div>
+    </div>
+  </div>
+</div>

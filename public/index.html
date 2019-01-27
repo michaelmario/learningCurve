@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>learningCurve book</title>
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Content-Type" content="text/html; Charset=UTF-8">
+  <meta name="keywords" content="learning curve">
+  <meta name="description" content="App d'aide à l'apprentissage">
+  <meta property="og:url" content="">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="">
+  <meta property="og:title" content="learning curve">
+  <meta property="og:description" content="App d'aide à l'apprentissage">
+  <meta property="og:site_name" content="learning curve">
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:title" content="learning curve">
+  <meta property="twitter:description" content="App d'aide à l'apprentissage">
+  <meta property="fb:app_id" content="">
+  <meta name="theme-color" content="#f38c21" />
+  <!--<link rel="manifest" href="/manifest.json">
+  < <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>-->
+  <link rel="icon" href="https://learningcurve-11efe.firebaseapp.com/images/icons/icon-60x60.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body id="body">
+  <div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">S'inscrire</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="modalform" autocomplete="off">
+            <div class="form-group">
+              <label for="modalnom">Nom</label>
+              <input type="text" class="form-control" id="modalnom" aria-describedby="textHelp" autocomplete="current-username"
+                placeholder="Entrez votre Nom" required>
+            </div>
+            <div class="form-group">
+              <label for="modalemail">Email</label>
+              <input type="email" class="form-control" id="modalemail" aria-describedby="emailHelp" autocomplete="current-email"
+                placeholder="Entrez votre Email" required>
+            </div>
+
+            <div class="form-group">
+              <label for="modalpass">Password</label>
+              <input type="password" class="form-control" id="modalpass" aria-describedby="passwordHelp" autocomplete="current-password"
+                placeholder="Password" required>
+            </div>
+            <button type="reset" class="btn btn-secondary" id="reset" accesskey="r"> Reset</button>
+            <div id="output"></div>
+          </form>
+
+        </div>
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" onclick="sinUpUser()" class="btn btn-outline-primary">Envoyer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- singin Modal-->
+  <div class="modal fade" id="signIn" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Connexion</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="sigIn-form">
+            <div class="form-group">
+              <label for="signIn-email">Email</label>
+              <input type="email" class="form-control" id="signIn-email" aria-describedby="email-Help" name="emailaddress"
+                autocomplete="current-email" placeholder="Entrez votre Email" required>
+            </div>
+            <div class="form-group">
+              <label for="signIn-password">Password</label>
+              <input type="password" class="form-control" id="signIn-password" aria-describedby="password-Help"
+                autocomplete="current-password" placeholder="Password" required>
+            </div>
+            <button type="reset" class="btn btn-secondary" id="resetSignIn" accesskey="r"> Reset</button>
+            <div id="outputSignIn"></div>
+          </form>
+
+        </div>
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" onclick="sinInUser()" class="btn btn-success">Envoyer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- navBar-->
+  <nav class="navbar navbar-expand-lg navbar-fixed-top" id="navMain">
+    <a class="navbar-brand" href="#">LearningCurve</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item btn btn-outline text-white" title="Connexion" data-toggle="modal" data-target="#signIn" id="connect">
+          <i class="fa fa fa-user-circle"></i> Connexion</li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#"></a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            PARAMETRE
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" id="default" onclick="toggleClass(this)"> <i class="fa fa-eye"></i>
+              Default</a>
+            <a class="dropdown-item" id="Lumiere" onclick="toggleClass(this)"> <i class="fa fa-eye"></i>
+              Lumière</a>
+            <a class="dropdown-item" id="Fonce" onclick="toggleClass(this)"> <i class="fa fa-eye-slash"></i>
+              Foncé</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#"></a>
+          </div>
+        </li>
+
+      </ul>
+
+    </div>
+  </nav>
+  <!-- Main Container -->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4 col-sm-12">
+        <div class="list-group" id="relmyList" role="tablist">
+          <a class="list-group-item list-group-item-action active" data-toggle="list" href="#" id="accueil" role="tab">
+            <i class="fa fa-fort-awesome"></i> Accueil</a>
+          <a class="list-group-item list-group-item-action" data-toggle="list" id="msedt" href="#" role="tab">
+            <i class="fa fa-grav"></i> La Prairie</a>
+          <a class="list-group-item list-group-item-action" data-toggle="list" id="amorproject" href="#" role="tab">
+            <i class="fa fa-first-order"></i> Amorsage
+            de projet</a>
+          <a class="list-group-item list-group-item-action" data-toggle="list" id="ArchiBasicAppBtn" href="#" role="tab">
+            <i class="fa fa-gears"></i> Architecture
+            d'app</a>
+          <a class="list-group-item list-group-item-action" data-toggle="list" id="PtechniqueProjet" href="#" role="tab">
+            <i class="fa fa-object-group"></i> Planifier
+            un projet</a>
+          <a class="list-group-item list-group-item-action" data-toggle="list" id="message" href="#" role="tab">
+            <i class="fa fa-stack-exchange"></i> Messages</a>
+          <a class="list-group-item list-group-item-action" data-toggle="modal" data-target="#rendeVousModal" href="#"
+            role="tab">
+            <i class="fa fa-fort-awesome"></i> Rendez-vous</a>
+          <a class="list-group-item list-group-item-action" data-toggle="list" href="#settings" role="tab">
+            <i class="fa fa-steam-square"></i> Settings</a>
+        </div>
+        <div class="boxMessage">
+          <div class="card-title">
+            i am the box message <span><i class="fa fa-close"></i></span>
+          </div>
+          <div class="card-body"></div>
+          <div class="card-footer">
+            <form>
+              <label for="message">Message</label>
+              <input type="text" placeholder=" Votre message" id="mess">
+              <i class="fa fa-send-o"></i>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8 col-sm-12">
+        <section id="home">
+          <div class="mainCard" id="mainCard-home">
+            <h1>App d'aide à l'apprentissage</h1>
+            <p class="text-center">Gardez vos leçons et les liens importants de ce que vous avez appris à portée de
+              main et prêts à être consultés à tout moment
+            </p>
+            <div class="card  homeCard" id="homeCard">
+              <div class="card-title text-center pt-2">
+                <h6>A QUOI SA SERVE</h6>
+              </div>
+              <div class="card-body">
+                <ol>
+                  <li>
+                    <h6>Quel but</h6>
+                    <p>
+                      Comme la formation est en mode intensive et que vous devez mémoriser beaucoup de
+                      concepts en trois mois, cette application est faite pour vous.
+                    </p>
+                  </li>
+                  <li>
+                    <h6>Comment</h6>
+                    <p>Ecrivez des notes, des liens importants, des mots clés sur ce que vous devez savoir et comment
+                      atteindre votre but.</p>
+                  </li>
+                  <li>
+                    <h6>Collaborative</h6>
+                    <p>Open source sur <a href="#" id="github">github</a>. Vous être invité à faire des
+                      suggestions et à
+                      améliorer le code ou à personnaliser l'application</p>
+                  </li>
+                  <li><button class="btn btn-outline-warning btn-lg" role="button" data-toggle="modal" data-target="#signup"><strong>Inscrivez-vous</strong></button>
+                    <p>Pour accéder à l'application,et stocker vos données </p>
+                  </li>
+                  <li id="buttonOutput"></li>
+                  <li><span><button class="badge"><i class="fa fa-facebook"></i></button></span><span><button class="badge"><i class="fa fa-google-plus"></i></button></span><button class="badge"><i class="fa fa-twitter"></i></button><span></span><button class="badge"><i class="fa fa-github"></i></button><span><button class="badge"></button></span></li>
+                 <li>Inscrivez-vous avec les réseaux sociaux </li>
+                </ol>
+              </div>
+            </div>
+            <div class="card homeCard" id="homeCard2">
+              <div class="card-title text-center  pt-2">
+                <h6>Don't be aspirer to make a living <br>be inspired to make a difference</h6>
+              </div>
+              <div class="card-body" id="videoplace2">
+                <iframe title="inspire" src="https://www.youtube.com/embed/tlY0PkWxCW8?rel=0&amp;controls=0"
+                  allowfullscreen="">
+                </iframe>
+              </div>
+              <div class="card-footer  mt-5">
+                 <div id="carousel">
+                <input checked id="one" name="multiples" type="radio" value="1">
+                  <label for="one">1</label>
+
+                  <input id="two" name="multiples" type="radio" value="2">
+                  <label for="two">2</label>
+
+                  <input id="three" name="multiples" type="radio" value="3">
+                  <label for="three">3</label>
+
+                  <input id="four" name="multiples" type="radio" value="4">
+                  <label for="four">4</label>
+
+                  <input id="five" name="multiples" type="radio" value="5">
+                  <label for="five">5</label>
+
+                  <input id="six" name="multiples" type="radio" value="6">
+                  <label for="six">6</label>                
+                  <div class="container">
+                    <div class="carousel">
+                      <div>
+                        <blockquote>Pour réussir, c'est le fruit de l'apprentissage et de travail
+                          acharné,et des lecons tirée de l'échec </blockquote>
+                        <p class="authername">Colin Powell</p>
+                      </div>
+                      <div>
+                        <blockquote>Pour réussir, c'est le fruit de l'apprentissage et de travail
+                          acharné,et des lecons tirée de l'échec </blockquote>
+                        <p class="authername">Mario Achille</p>
+                      </div>
+                      <div>
+                        <blockquote>Pour réussir, c'est le fruit de l'apprentissage et de travail
+                          acharné,et des lecons tirée de l'échec </blockquote>
+                        <p class="authername">Powell</p>
+                      </div>
+                      <div>
+                        <blockquote>Pour réussir, c'est le fruit de l'apprentissage et de travail
+                          acharné,et des lecons tirée de l'échec </blockquote>
+                        <p class="authername">Colin </p>
+                      </div>
+                      <div>
+                        <blockquote>Pour réussir, c'est le fruit de l'apprentissage et de travail
+                          acharné,et des lecons tirée de l'échec </blockquote>
+                        <p class="authername">Colin Powell</p>
+                      </div>
+                      <div>
+                      <blockquote>Pour réussir, c'est le fruit de l'apprentissage et de travail
+                          acharné,et des lecons tirée de l'échec </blockquote>
+                        <p class="authername">Colin Powell</p>
+                      </div>
+                      <div>
+                      <blockquote>Pour réussir, c'est le fruit de l'apprentissage et de travail
+                          acharné,et des lecons tirée de l'échec </blockquote>
+                        <p class="authername">Colin Powell</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>               
+              </div>
+        </section>
+        <section id="LaPrairie">
+          <div class="row">
+            <div class="mainCard">
+              <div class="card introCard">
+                <div class="card-body">
+                  <h6>Environnement de travail</h6>
+                  <button class="btn btn-outline-danger" id="entTravail">faut retenir </button>
+                </div>
+              </div>
+              <div class="card introCard">
+                <div class="card-body">
+                  <h6>Initiation de git et github</h6>
+                  <button class="btn btn-outline-danger" id="gitGithub">faut retenir </button>
+                </div>
+              </div>
+              <div class="card introCard">
+                <div class="card-body">
+                  <h6>Project open source</h6>
+                  <button class="btn btn-outline-danger" id="openSource">faut retenir </button>
+                </div>
+              </div>
+              <div class="card introCard">
+                <div class="card-body">
+                  <h6>Versioning le code</h6>
+                  <button class="btn btn-outline-danger" id="versionCode">faut retenir </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 col-sm-12">
+            <div id="labelOutPut"></div>
+            <div id="outPutSection">
+              <div class="card">
+                <div class="card-body" id="outputContent">
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+        <!--end of section  LaPrairie-->
+        <section id="agileGestion">
+          <div class="row">
+            <div class="mainCard">
+              <div class="card introCard">
+                <div class="card-body">
+                  <h6>Identifier les objectifs du project</h6>
+                  <button class="btn btn-outline-danger" id="agileIlodProjet">faut retenir </button>
+                </div>
+              </div>
+              <div class="card  introCard">
+                <div class="card-body">
+                  <h6>Diviser une problématique</h6>
+                  <button class="btn btn-outline-danger" id="agileDiviserPro">faut retenir </button>
+                </div>
+              </div>
+              <div class="card  introCard">
+                <div class="card-body">
+                  <h6>Compétances et ressources nécessaires</h6>
+                  <button class="btn btn-outline-danger" id="agilecompétances">faut retenir</button>
+                </div>
+              </div>
+              <div class="card  introCard">
+                <div class="card-body">
+                  <h6> Définir un planning </h6>
+                  <button class="btn btn-outline-danger" id="agileDPlann">faut retenir</button>
+                </div>
+              </div>
+              <div class="card  introCard">
+                <div class="card-body">
+                  <h6>Les principes AGILES</h6>
+                  <button class="btn btn-outline-danger" id="agilePrincipes">faut retenir </button>
+                </div>
+              </div>
+              <div class="card  introCard">
+                <div class="card-body">
+                  <h6>Communique clairement</h6>
+                  <button class="btn btn-outline-danger" id="agileCommunique">faut retenir </button>
+                </div>
+              </div>
+              <div class="card  introCard">
+                <div class="card-body">
+                  <h6>Flexibilité et adaptation au changement</h6>
+                  <button class="btn btn-outline-danger" id="agileFadaptation">faut retenir </button>
+                </div>
+              </div>
+              <div class="card  introCard">
+                <div class="card-body">
+                  <h6>Coordonner et manager des collaborateurs</h6>
+                  <button class="btn btn-outline-danger" id="agileCoordonner">faut retenir </button>
+                </div>
+              </div>
+              <div class="col-md-12 col-sm-12">
+                <div id="agileSection">
+                  <div class="card">
+                    <div class="card-title" id="agile-labelOutPut"></div>
+                    <div class="card-body" id="agile-boycard">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!--end ofsection amorsage-->
+        <section id="ArchiBasicApp">
+          <div class="row">
+            <div class="mainCard">
+              <div class="card introCard">
+                <div class="card-body">
+                  <h6>Vocabulaire technique</h6>
+                  <button class="btn btn-outline-danger" id="VocabulaireTec">faut retenir </button>
+                </div>
+              </div>
+              <div class="card  introCard">
+                <div class="card-body">
+                  <h6>Technologies et leurs domaines d'application</h6>
+                  <button class="btn btn-outline-danger" id="technologiesldApp">faut retenir </button>
+                </div>
+              </div>
+
+              <div class="card  introCard">
+                <div class="card-body">
+                  <h6>Cerner une problématique de projet</h6>
+                  <button class="btn btn-outline-danger" id="cernerProblemProjet">faut retenir </button>
+                </div>
+              </div>
+              <div class="card introCard">
+                <div class="card-body">
+                  <h6>Technologies associées à une application</h6>
+                  <button class="btn btn-outline-danger" id="tecnoloAssApp">faut retenir </button>
+                </div>
+              </div>
+
+              <div class="col-md-12 col-sm-12">
+                <div id="ArchitectureSection">
+                  <div class="card">
+                    <div class="card-title" id="architecture-labelOutPut"></div>
+                    <div class="card-body" id="Architecture-OutPut">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!--end of section architecrure basic-->
+        <section id="PlanifierTecProjet">
+          <div class="row">
+            <div class="mainCard">
+              <div class="card introCard">
+                <div class="card-body">
+                  <h6>Séquencer une problématique en functionnalitées</h6>
+                  <button class="btn btn-outline-danger" id="sequeceblfunc">faut retenir </button>
+                </div>
+              </div>
+              <div class="card  introCard">
+                <div class="card-body">
+                  <h6>Corrélation entre problématique et compétances</h6>
+                  <button class="btn btn-outline-danger" id="coreentrepbcomp">faut retenir </button>
+                </div>
+              </div>
+
+              <div class="card introCard">
+                <div class="card-body">
+                  <h6>Structurer ses tâches en fonction de la problématique</h6>
+                  <button class="btn btn-outline-danger" id="strucfuncprob">faut retenir </button>
+                </div>
+              </div>
+              <div class="card  introCard">
+                <div class="card-body">
+                  <h6>Produire un cahier des charges simple ....</h6>
+                  <button class="btn btn-outline-danger" id="prochaier-Charchesimple">faut retenir </button>
+                </div>
+              </div>
+              <div class="card  introCard">
+                <div class="card-body">
+                  <h6>Être capable de proposer un planning réaliste</h6>
+                  <button class="btn btn-outline-danger" id="reaPlan">faut retenir </button>
+                </div>
+              </div>
+              <div class="col-md-12 col-sm-12">
+
+                <div id="PlanifierTecSection">
+                  <div class="card">
+                    <div class="card-title" id="planifier-labelOutPut"></div>
+                    <div class="card-body" id="Planifier-TecOutPut">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section id="environment">
+          <div class="card text-center">
+            <div class="row">
+              <div class="col-md-6">
+                <div id="accordion">
+                  <h3>Notes</h3>
+                  <div>
+                    <textarea class="input" id="notes"></textarea>
+                    <p>Clique sur entrer <i class="fa fa-arrow-right"></i></p>
+                  </div>
+                  <h3>les mots clés</h3>
+                  <div>
+                    <input class="input" id="motCles">
+                    <p>Clique sur entrer <i class="fa fa-arrow-right"></i></p>
+                  </div>
+                  <h3>Ce que je doit savoir</h3>
+                  <div>
+                    <textarea class="input" id="jdsavoir"></textarea>
+                    <p>Clique sur entrer <i class="fa fa-arrow-right"></i></p>
+                  </div>
+                  <h3>Comment atteindre mon but</h3>
+                  <div>
+                    <textarea class="input" id="jdsfaire"></textarea>
+                    <p>Clique sur entrer <i class="fa fa-arrow-right"></i></p>
+                  </div>
+                </div>
+                <div id="buttonContainer">
+                  <button type="submit" class="btn ripple" id="quitter">Quitter <span id="navarrow">&#9652;</span>
+                  </button>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card">
+                  <div class="card-header"><label id="firstlabel"></label></div>
+                  <div id="notesRelease"></div>
+                  <div id="motclescontainer">
+                    <ul>
+                      <li id="motCles-Release"></li>
+                    </ul>
+                  </div>
+                  <div id="jdsavoir-Release"></div>
+                  <div id="jdfaireRe-lease"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+    <div id="load"></div>
+  </div>
+  <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+  <script src="js/firebase.js"></script>
+  <script src="js/mainClass.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="js/app.js"></script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js', {
+        scope: '/'
+      }).then(function (reg) {
+        // registration worked
+        console.log('Registration succeeded. Scope is ' + reg.scope);
+      }).catch(function (error) {
+        // registration failed
+        console.log('Registration failed with ' + error);
+      });
+    };
+  </script>
+
+
+</body>
+
+</html>
